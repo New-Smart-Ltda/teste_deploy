@@ -1,4 +1,4 @@
-name: Deploy cardzap (FTP)
+name: Deploy teste_deploy (FTP)
 
 on:
   push:
@@ -15,6 +15,15 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Debug dist
+        run: ls -la dist
+
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
@@ -24,4 +33,4 @@ jobs:
           port: ${{ secrets.FTP_PORT || 21 }}
           protocol: ftps
           local-dir: ./dist/
-          server-dir: ./
+          server-dir: ./teste_deploy/
