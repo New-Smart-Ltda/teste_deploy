@@ -11,10 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
@@ -23,5 +19,8 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT || 21 }}
           protocol: ftps
-          local-dir: ./dist/
+          local-dir: ./
           server-dir: ./teste_deploy/
+          exclude: |
+            **/.git*
+            **/.github/**
